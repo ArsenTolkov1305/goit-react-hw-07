@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { selectContacts } from "../../redux/contactsSlice";
-import { addContact } from "../../redux/contactOps";
+import { addContact } from "../../redux/contactsOps";
 import css from "./ContactForm.module.css";
 
 const contactSchema = Yup.object().shape({
