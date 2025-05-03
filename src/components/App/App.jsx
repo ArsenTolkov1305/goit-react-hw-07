@@ -22,7 +22,7 @@ export default function App() {
       <ContactForm />
       <SearchBox />
       {isLoading && !error && <p>Request in progress, wait a minute!</p>}
-      <ContactList />
+      <ContactList isLoading={isLoading} />
     </div>
   );
 }
