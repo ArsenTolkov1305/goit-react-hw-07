@@ -1,32 +1,51 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchContacts, addContact, deleteContact } from "./operations";
 
-const initialContacts = [
-  { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-  { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-  { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-  { id: "id-4", name: "Annie Copeland", number: "227-91-37" },
-];
+const handlePending = (state) => {
+  state.loading = true;
+};
+
+const handleRejected = (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+};
 
 const contactsSlice = createSlice({
   name: "contacts",
   initialState: {
-    items: [...initialContacts], // Початкові контакти додаються до стану
+    items: [],
+    loading: false,
+    error: null,
   },
-  reducers: {
-    addContact: (state, action) => {
-      state.items.push(action.payload);
-    },
-    deleteContact: (state, action) => {
-      state.items = state.items.filter(
-        (contact) => contact.id !== action.payload
-      );
-    },
+  redusers: {},
+  extraReducers: (builder) => {
+    builder
+      // fetchContacts
+      .addCase(fetchContacts.pending, handlePending)
+      .addCase(fetchContacts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.contacts = action.payload;
+      })
+      .addCase(fetchContacts.rejected, handleRejected)
+      //addContact
+      .addCase(addContact.pending, handlePending)
+      .addCase(addContact.fulfilled, (state, action) => {
+        state.contacts.push(action.payload);
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(addContact.rejected, handleRejected)
+      //deleteContact
+      .addCase(deleteContact.pending, handlePending)
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.contacts = state.contacts.filter(
+          (contact) => contact.id !== action.payload.id,
+        );
+      })
+      .addCase(deleteContact.rejected, handleRejected);
   },
 });
 
-export const { addContact, deleteContact } = contactsSlice.actions;
-
-// Повертаємо всі контакти зі стану
 export const selectContacts = (state) => state.contacts.items;
-
 export default contactsSlice.reducer;

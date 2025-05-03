@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { selectContacts } from "../../redux/contactsSlice";
 import { selectFilter } from "../../redux/filtersSlice";
+import { selectContacts } from "../../redux/contactsSlice";
 import Contact from "../Contact/Contact";
 import css from "./ContactList.module.css";
 
@@ -12,7 +12,7 @@ export default function ContactList() {
     (contact) =>
       contact &&
       contact.name &&
-      contact.name.toLowerCase().includes(filter.toLowerCase())
+      contact.name.toLowerCase().includes(filter.toLowerCase()),
   );
 
   return (
