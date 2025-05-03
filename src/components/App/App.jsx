@@ -13,10 +13,10 @@ export default function App() {
   }, [dispatch]);
 
   const isLoading = useSelector((state) => {
-    state.contacts.loading;
+    return state.contacts.loading; // Додано return
   });
   const error = useSelector((state) => {
-    state.contacts.error;
+    return state.contacts.error; // Додано return
   });
 
   return (
