@@ -12,12 +12,9 @@ export default function App() {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const isLoading = useSelector((state) => {
-    state.contacts.loading;
-  });
-  const error = useSelector((state) => {
-    state.contacts.error;
-  });
+  const isLoading = useSelector((state) => state.contacts.loading);
+
+  const error = useSelector((state) => state.contacts.error);
 
   return (
     <div className={css.container}>
