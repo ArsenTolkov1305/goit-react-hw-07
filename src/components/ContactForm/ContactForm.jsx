@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { selectContacts } from "../../redux/contactsSlice";
-import { addContact } from "../../redux/operations";
+import { addContact } from "../../redux/contactOps";
 import css from "./ContactForm.module.css";
 
 const contactSchema = Yup.object().shape({
@@ -23,7 +23,7 @@ export default function ContactForm() {
 
   const handleSubmit = (values, { resetForm }) => {
     const isContactExist = contacts.some(
-      (contact) => contact.name.toLowerCase() === values.name.toLowerCase(),
+      (contact) => contact.name.toLowerCase() === values.name.toLowerCase()
     );
 
     if (isContactExist) {
@@ -36,7 +36,7 @@ export default function ContactForm() {
         id: nanoid(),
         name: values.name,
         number: values.number,
-      }),
+      })
     );
     resetForm();
   };

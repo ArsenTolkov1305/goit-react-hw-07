@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchContacts, addContact, deleteContact } from "./operations";
+import { fetchContacts, addContact, deleteContact } from "./contactOps";
 
 const handlePending = (state) => {
   state.loading = true;
@@ -13,11 +13,11 @@ const handleRejected = (state, action) => {
 const contactsSlice = createSlice({
   name: "contacts",
   initialState: {
-    items: [], // Початкові контакти
+    items: [],
     loading: false,
     error: null,
   },
-  reducers: {}, // Виправлено назву
+  reducers: {},
   extraReducers: (builder) => {
     builder
       // fetchContacts
@@ -25,13 +25,13 @@ const contactsSlice = createSlice({
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.items = action.payload; // Виправлено на items
+        state.items = action.payload;
       })
       .addCase(fetchContacts.rejected, handleRejected)
       // addContact
       .addCase(addContact.pending, handlePending)
       .addCase(addContact.fulfilled, (state, action) => {
-        state.items.push(action.payload); // Виправлено на items
+        state.items.push(action.payload);
         state.loading = false;
         state.error = null;
       })
@@ -41,11 +41,11 @@ const contactsSlice = createSlice({
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.items = state.items.filter(
           (contact) => contact.id !== action.payload.id
-        ); // Виправлено на items
+        );
       })
       .addCase(deleteContact.rejected, handleRejected);
   },
 });
 
-export const selectContacts = (state) => state.contacts.items; // Виправлено на items
+export const selectContacts = (state) => state.contacts.items;
 export default contactsSlice.reducer;

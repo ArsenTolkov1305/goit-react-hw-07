@@ -4,7 +4,7 @@ import SearchBox from "../SearchBox/SearchBox";
 import css from "./App.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContacts } from "../../redux/operations";
+import { fetchContacts } from "../../redux/contactOps";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -13,10 +13,10 @@ export default function App() {
   }, [dispatch]);
 
   const isLoading = useSelector((state) => {
-    return state.contacts.loading; // Додано return
+    return state.contacts.loading;
   });
   const error = useSelector((state) => {
-    return state.contacts.error; // Додано return
+    return state.contacts.error;
   });
 
   return (
