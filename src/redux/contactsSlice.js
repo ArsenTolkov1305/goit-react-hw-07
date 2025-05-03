@@ -13,11 +13,11 @@ const handleRejected = (state, action) => {
 const contactsSlice = createSlice({
   name: "contacts",
   initialState: {
-    items: [],
+    items: [], // Початкові контакти
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {}, // Виправлено назву
   extraReducers: (builder) => {
     builder
       // fetchContacts
@@ -25,29 +25,27 @@ const contactsSlice = createSlice({
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.items = action.payload;
+        state.items = action.payload; // Виправлено на items
       })
       .addCase(fetchContacts.rejected, handleRejected)
-      //addContact
+      // addContact
       .addCase(addContact.pending, handlePending)
       .addCase(addContact.fulfilled, (state, action) => {
-        state.items.push(action.payload);
+        state.items.push(action.payload); // Виправлено на items
         state.loading = false;
         state.error = null;
       })
       .addCase(addContact.rejected, handleRejected)
-      //deleteContact
+      // deleteContact
       .addCase(deleteContact.pending, handlePending)
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.items = state.items.filter(
-          (contact) => contact.id !== action.payload.id,
-        );
-        state.loading = false;
-        state.error = null;
+          (contact) => contact.id !== action.payload.id
+        ); // Виправлено на items
       })
       .addCase(deleteContact.rejected, handleRejected);
   },
 });
 
-export const selectContacts = (state) => state.items;
+export const selectContacts = (state) => state.contacts.items; // Виправлено на items
 export default contactsSlice.reducer;

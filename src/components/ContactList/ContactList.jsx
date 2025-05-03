@@ -4,25 +4,21 @@ import { selectContacts } from "../../redux/contactsSlice";
 import Contact from "../Contact/Contact";
 import css from "./ContactList.module.css";
 
-export default function ContactList({ isLoading }) {
+export default function ContactList() {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
 
-  
-  const filteredContacts = contacts
-    ? contacts.filter(
-        (contact) =>
-          contact.name &&
-          contact.name.toLowerCase().includes(filter.toLowerCase()),
-      )
-    : [];
+  const filteredContacts = contacts.filter(
+    (contact) =>
+      contact &&
+      contact.name &&
+      contact.name.toLowerCase().includes(filter.toLowerCase()),
+  );
 
   return (
     <div className={css.container}>
       <h2 className={css.title}>Contacts</h2>
-      {contacts.length === 0 ? (
-        <p className={css.message}>No contacts yet</p>
-      ) : filteredContacts.length === 0 ? (
+      {filteredContacts.length === 0 ? (
         <p className={css.message}>No contacts found</p>
       ) : (
         <ul className={css.list}>

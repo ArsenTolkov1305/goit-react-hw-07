@@ -12,9 +12,12 @@ export default function App() {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const isLoading = useSelector((state) => state.contacts.loading);
-
-  const error = useSelector((state) => state.contacts.error);
+  const isLoading = useSelector((state) => {
+    state.contacts.loading;
+  });
+  const error = useSelector((state) => {
+    state.contacts.error;
+  });
 
   return (
     <div className={css.container}>
@@ -22,7 +25,7 @@ export default function App() {
       <ContactForm />
       <SearchBox />
       {isLoading && !error && <p>Request in progress, wait a minute!</p>}
-      <ContactList isLoading={isLoading} />
+      <ContactList />
     </div>
   );
 }
